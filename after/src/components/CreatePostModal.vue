@@ -312,7 +312,7 @@ const handleSubmit = () => {
   position: fixed;
   inset: 0;
   z-index: 1000;
-  background-color: rgba(0, 0, 0, 0.65);
+  background-color: rgb(0 0 0 / 0.65);
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
@@ -325,18 +325,19 @@ const handleSubmit = () => {
   background-color: var(--bg-surface);
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-lg);
-  width: 100%;
-  max-width: 760px;
-  max-height: 90vh;
+  inline-size: 100%;
+  max-inline-size: 760px;
+  max-block-size: 90dvh;
   display: flex;
   flex-direction: column;
   box-shadow: var(--shadow-xl);
-  overflow: hidden;
+  overflow: clip;
 }
 
 .modal-header {
-  padding: 1.5rem 1.75rem;
-  border-bottom: 1px solid var(--border-light);
+  padding-block: 1.5rem;
+  padding-inline: 1.75rem;
+  border-block-end: 1px solid var(--border-light);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -349,12 +350,14 @@ const handleSubmit = () => {
   font-weight: 700;
   color: var(--text-primary);
   line-height: 1.2;
+  text-wrap: balance;
 }
 
 .modal-subtitle {
   font-size: 0.8125rem;
   color: var(--text-muted);
-  margin-top: 0.25rem;
+  margin-block-start: 0.25rem;
+  text-wrap: pretty;
 }
 
 .header-actions {
@@ -374,7 +377,8 @@ const handleSubmit = () => {
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.35rem 0.75rem;
+  padding-block: 0.35rem;
+  padding-inline: 0.75rem;
   font-size: 0.8125rem;
   font-weight: 500;
   border: none;
@@ -383,12 +387,12 @@ const handleSubmit = () => {
   border-radius: var(--radius-full);
   cursor: pointer;
   transition: all var(--transition-fast);
-}
 
-.tab-btn.active {
-  background-color: var(--bg-surface);
-  color: var(--text-primary);
-  box-shadow: var(--shadow-sm);
+  &.active {
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+    box-shadow: var(--shadow-sm);
+  }
 }
 
 .btn-icon-close {
@@ -402,21 +406,23 @@ const handleSubmit = () => {
   align-items: center;
   justify-content: center;
   transition: color var(--transition-fast), background-color var(--transition-fast);
-}
 
-.btn-icon-close:hover {
-  color: var(--text-primary);
-  background-color: var(--bg-secondary);
+  &:hover {
+    color: var(--text-primary);
+    background-color: var(--bg-secondary);
+  }
 }
 
 .modal-body {
   padding: 1.75rem;
   overflow-y: auto;
+  scrollbar-gutter: stable;
+  overscroll-behavior: contain;
   flex: 1;
 }
 
 .form-group {
-  margin-bottom: 1.25rem;
+  margin-block-end: 1.25rem;
 }
 
 .form-grid-2 {
@@ -430,7 +436,7 @@ const handleSubmit = () => {
   font-size: 0.8125rem;
   font-weight: 600;
   color: var(--text-primary);
-  margin-bottom: 0.375rem;
+  margin-block-end: 0.375rem;
 }
 
 .title-input {
@@ -442,7 +448,7 @@ const handleSubmit = () => {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 0.5rem;
+  margin-block-start: 0.5rem;
   flex-wrap: wrap;
 }
 
@@ -455,24 +461,25 @@ const handleSubmit = () => {
   background: var(--bg-secondary);
   border: 1px solid var(--border-light);
   color: var(--text-secondary);
-  padding: 0.2rem 0.5rem;
+  padding-block: 0.2rem;
+  padding-inline: 0.5rem;
   border-radius: var(--radius-full);
   font-size: 0.75rem;
   cursor: pointer;
   transition: all var(--transition-fast);
-}
 
-.preset-chip:hover {
-  color: var(--text-primary);
-  border-color: var(--border-medium);
-  background: var(--bg-tertiary);
+  &:hover {
+    color: var(--text-primary);
+    border-color: var(--border-medium);
+    background: var(--bg-tertiary);
+  }
 }
 
 .content-label-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.375rem;
+  margin-block-end: 0.375rem;
 }
 
 .content-meta {
@@ -481,7 +488,7 @@ const handleSubmit = () => {
 }
 
 .content-textarea {
-  min-height: 180px;
+  min-block-size: 180px;
   font-family: var(--font-sans);
   line-height: 1.6;
 }
@@ -492,24 +499,25 @@ const handleSubmit = () => {
 }
 
 .preview-banner {
-  width: 100%;
-  max-height: 220px;
+  inline-size: 100%;
+  max-block-size: 220px;
   border-radius: var(--radius-md);
-  overflow: hidden;
-  margin-bottom: 1.5rem;
+  overflow: clip;
+  margin-block-end: 1.5rem;
 }
 
 .preview-img {
-  width: 100%;
-  height: 100%;
+  inline-size: 100%;
+  block-size: 100%;
   object-fit: cover;
 }
 
 .preview-title {
   font-family: var(--font-serif);
   font-size: 1.75rem;
-  margin: 0.75rem 0 0.5rem;
+  margin-block: 0.75rem 0.5rem;
   color: var(--text-primary);
+  text-wrap: balance;
 }
 
 .preview-author-bar {
@@ -518,7 +526,7 @@ const handleSubmit = () => {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 1.5rem;
+  margin-block-end: 1.5rem;
 }
 
 .preview-content-text {
@@ -527,6 +535,8 @@ const handleSubmit = () => {
   line-height: 1.75;
   color: var(--text-secondary);
   white-space: pre-wrap;
+  text-wrap: pretty;
+  overflow-wrap: break-word;
 }
 
 .preview-placeholder {
@@ -535,8 +545,9 @@ const handleSubmit = () => {
 }
 
 .modal-footer {
-  padding: 1.25rem 1.75rem;
-  border-top: 1px solid var(--border-light);
+  padding-block: 1.25rem;
+  padding-inline: 1.75rem;
+  border-block-start: 1px solid var(--border-light);
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -555,7 +566,7 @@ const handleSubmit = () => {
   opacity: 0;
 }
 
-@media (max-width: 640px) {
+@media (width <= 640px) {
   .form-grid-2 {
     grid-template-columns: 1fr;
   }

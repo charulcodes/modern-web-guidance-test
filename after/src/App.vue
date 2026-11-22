@@ -49,7 +49,7 @@ onMounted(() => {
 
 <style scoped>
 .app-layout {
-  min-height: 100vh;
+  min-block-size: 100dvh;
   display: flex;
   flex-direction: column;
 }

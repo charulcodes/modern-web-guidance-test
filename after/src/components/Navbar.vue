@@ -60,21 +60,17 @@ const { isDark, toggleTheme } = useTheme();
 <style scoped>
 .navbar {
   position: sticky;
-  top: 0;
+  inset-block-start: 0;
   z-index: 100;
-  background-color: rgba(251, 251, 251, 0.88);
+  background-color: color-mix(in oklab, var(--bg-primary) 88%, transparent);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border-light);
+  border-block-end: 1px solid var(--border-light);
   transition: background-color var(--transition-normal), border-color var(--transition-normal);
 }
 
-[data-theme="dark"] .navbar {
-  background-color: rgba(9, 9, 11, 0.88);
-}
-
 .navbar-inner {
-  height: 4.25rem;
+  block-size: 4.25rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -86,22 +82,27 @@ const { isDark, toggleTheme } = useTheme();
   align-items: center;
   gap: 0.875rem;
   user-select: none;
+
+  &:hover .brand-icon {
+    @media (prefers-reduced-motion: no-preference) {
+      rotate: -4deg;
+      scale: 1.04;
+    }
+  }
 }
 
 .brand-icon {
-  width: 2.5rem;
-  height: 2.5rem;
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
   border-radius: var(--radius-md);
   background-color: var(--text-primary);
   color: var(--bg-primary);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform var(--transition-fast);
-}
-
-.brand:hover .brand-icon {
-  transform: rotate(-4deg) scale(1.04);
+  rotate: 0deg;
+  scale: 1;
+  transition: rotate var(--transition-fast), scale var(--transition-fast);
 }
 
 .brand-text {
@@ -134,28 +135,32 @@ const { isDark, toggleTheme } = useTheme();
 
 .write-btn {
   font-size: 0.875rem;
-  padding: 0.5rem 1rem;
+  padding-block: 0.5rem;
+  padding-inline: 1rem;
 }
 
 .theme-toggle {
-  width: 2.375rem;
-  height: 2.375rem;
+  inline-size: 2.375rem;
+  block-size: 2.375rem;
   color: var(--text-secondary);
-}
 
-.theme-toggle:hover {
-  color: var(--text-primary);
+  &:hover {
+    color: var(--text-primary);
+
+    .theme-icon {
+      @media (prefers-reduced-motion: no-preference) {
+        rotate: 20deg;
+      }
+    }
+  }
 }
 
 .theme-icon {
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  rotate: 0deg;
+  transition: rotate 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.theme-toggle:hover .theme-icon {
-  transform: rotate(20deg);
-}
-
-@media (max-width: 640px) {
+@media (width <= 640px) {
   .brand-sub {
     display: none;
   }

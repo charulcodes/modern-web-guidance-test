@@ -168,14 +168,14 @@ const clearFilters = () => {
 .home-view {
   display: flex;
   flex-direction: column;
-  padding-bottom: 4rem;
+  padding-block-end: 4rem;
 }
 
 /* Hero Section */
 .hero-section {
-  padding: 3.5rem 0 2rem;
+  padding-block: 3.5rem 2rem;
   background-color: var(--bg-surface);
-  border-bottom: 1px solid var(--border-light);
+  border-block-end: 1px solid var(--border-light);
   transition: background-color var(--transition-normal);
 }
 
@@ -186,7 +186,7 @@ const clearFilters = () => {
 }
 
 .hero-content {
-  max-width: 780px;
+  max-inline-size: 780px;
 }
 
 .hero-tag {
@@ -198,7 +198,7 @@ const clearFilters = () => {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--accent);
-  margin-bottom: 0.75rem;
+  margin-block-end: 0.75rem;
 }
 
 .hero-tag-icon {
@@ -207,18 +207,21 @@ const clearFilters = () => {
 
 .hero-heading {
   font-family: var(--font-serif);
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(2rem, 1.25rem + 3vw, 3rem);
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.02em;
   color: var(--text-primary);
-  margin-bottom: 1rem;
+  margin-block-end: 1rem;
+  text-wrap: balance;
 }
 
 .hero-subheading {
   font-size: 1.125rem;
   color: var(--text-secondary);
   line-height: 1.6;
+  text-wrap: pretty;
+  max-inline-size: 65ch;
 }
 
 /* Controls */
@@ -230,22 +233,23 @@ const clearFilters = () => {
 
 .search-bar-wrap {
   position: relative;
-  max-width: 620px;
-  width: 100%;
+  max-inline-size: 620px;
+  inline-size: 100%;
 }
 
 .search-icon {
   position: absolute;
-  left: 1.125rem;
-  top: 50%;
-  transform: translateY(-50%);
+  inset-inline-start: 1.125rem;
+  inset-block-start: 50%;
+  translate: 0 -50%;
   color: var(--text-muted);
   pointer-events: none;
 }
 
 .search-input {
-  width: 100%;
-  padding: 0.875rem 2.75rem 0.875rem 3rem;
+  inline-size: 100%;
+  padding-block: 0.875rem;
+  padding-inline: 3rem 2.75rem;
   font-size: 0.9375rem;
   background-color: var(--bg-primary);
   border: 1px solid var(--border-medium);
@@ -253,19 +257,19 @@ const clearFilters = () => {
   color: var(--text-primary);
   outline: none;
   transition: all var(--transition-fast);
-}
 
-.search-input:focus {
-  border-color: var(--accent);
-  background-color: var(--bg-surface);
-  box-shadow: 0 0 0 3px var(--accent-subtle);
+  &:focus-visible {
+    border-color: var(--accent);
+    background-color: var(--bg-surface);
+    box-shadow: 0 0 0 3px var(--accent-subtle);
+  }
 }
 
 .clear-search-btn {
   position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
+  inset-inline-end: 1rem;
+  inset-block-start: 50%;
+  translate: 0 -50%;
   background: none;
   border: none;
   color: var(--text-muted);
@@ -275,31 +279,33 @@ const clearFilters = () => {
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-full);
+
+  &:hover {
+    color: var(--text-primary);
+  }
 }
 
-.clear-search-btn:hover {
-  color: var(--text-primary);
-}
-
-/* Category Pills */
+/* Category Pills with flex-wrap: balance */
 .category-pills {
   display: flex;
+  flex-wrap: wrap;
+  flex-wrap: balance;
   align-items: center;
   gap: 0.5rem;
-  overflow-x: auto;
-  padding-bottom: 0.25rem;
+  padding-block-end: 0.25rem;
   scrollbar-width: none;
-}
 
-.category-pills::-webkit-scrollbar {
-  display: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .category-pill {
   font-family: var(--font-sans);
   font-size: 0.8125rem;
   font-weight: 500;
-  padding: 0.45rem 1rem;
+  padding-block: 0.45rem;
+  padding-inline: 1rem;
   border-radius: var(--radius-full);
   background-color: var(--bg-secondary);
   color: var(--text-secondary);
@@ -307,28 +313,28 @@ const clearFilters = () => {
   cursor: pointer;
   white-space: nowrap;
   transition: all var(--transition-fast);
-}
 
-.category-pill:hover {
-  color: var(--text-primary);
-  background-color: var(--bg-tertiary);
-}
+  &:hover {
+    color: var(--text-primary);
+    background-color: var(--bg-tertiary);
+  }
 
-.category-pill.active {
-  background-color: var(--text-primary);
-  color: var(--bg-primary);
+  &.active {
+    background-color: var(--text-primary);
+    color: var(--bg-primary);
+  }
 }
 
 /* Feed Section */
 .feed-section {
-  padding-top: 2.5rem;
+  padding-block-start: 2.5rem;
 }
 
 .feed-meta-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 2rem;
+  margin-block-end: 2rem;
   font-size: 0.875rem;
   color: var(--text-muted);
   flex-wrap: wrap;
@@ -361,34 +367,37 @@ const clearFilters = () => {
   text-decoration: underline;
 }
 
-/* Responsive Grid */
+/* Responsive Grid with min(100%, ...) */
 .posts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
   gap: 2rem;
 }
 
 /* Empty State */
 .empty-state {
   text-align: center;
-  padding: 5rem 2rem;
+  padding-block: 5rem;
+  padding-inline: 2rem;
   background-color: var(--bg-surface);
   border: 1px dashed var(--border-medium);
   border-radius: var(--radius-lg);
-  max-width: 580px;
-  margin: 2rem auto;
+  max-inline-size: 580px;
+  margin-inline: auto;
+  margin-block: 2rem;
 }
 
 .empty-icon-wrap {
-  width: 4rem;
-  height: 4rem;
+  inline-size: 4rem;
+  block-size: 4rem;
   border-radius: var(--radius-full);
   background-color: var(--bg-secondary);
   color: var(--text-muted);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 1.5rem;
+  margin-inline: auto;
+  margin-block-end: 1.5rem;
 }
 
 .empty-title {
@@ -396,14 +405,16 @@ const clearFilters = () => {
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 0.5rem;
+  margin-block-end: 0.5rem;
+  text-wrap: balance;
 }
 
 .empty-description {
   font-size: 0.9375rem;
   color: var(--text-secondary);
   line-height: 1.6;
-  margin-bottom: 1.75rem;
+  margin-block-end: 1.75rem;
+  text-wrap: pretty;
 }
 
 .empty-actions {
@@ -412,11 +423,5 @@ const clearFilters = () => {
   justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
-}
-
-@media (max-width: 640px) {
-  .posts-grid {
-    grid-template-columns: 1fr;
-  }
 }
 </style>

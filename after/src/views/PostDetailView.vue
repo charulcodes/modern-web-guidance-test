@@ -286,17 +286,17 @@ const handleShare = async () => {
 
 <style scoped>
 .post-detail-view {
-  padding-bottom: 5rem;
+  padding-block-end: 5rem;
 }
 
 .article-container {
-  max-width: 820px;
-  margin: 0 auto;
+  max-inline-size: 820px;
+  margin-inline: auto;
 }
 
 /* Back bar */
 .back-bar {
-  padding: 1.5rem 0 0.5rem;
+  padding-block: 1.5rem 0.5rem;
 }
 
 .back-btn {
@@ -310,25 +310,29 @@ const handleShare = async () => {
   font-weight: 500;
   color: var(--text-muted);
   cursor: pointer;
-  padding: 0.375rem 0;
-  transition: color var(--transition-fast), transform var(--transition-fast);
-}
+  padding-block: 0.375rem;
+  padding-inline: 0;
+  translate: 0 0;
+  transition: color var(--transition-fast), translate var(--transition-fast);
 
-.back-btn:hover {
-  color: var(--text-primary);
-  transform: translateX(-3px);
+  &:hover {
+    color: var(--text-primary);
+    @media (prefers-reduced-motion: no-preference) {
+      translate: -3px 0;
+    }
+  }
 }
 
 /* Header */
 .article-header {
-  padding: 1.5rem 0 2rem;
+  padding-block: 1.5rem 2rem;
 }
 
 .header-meta {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 1.25rem;
+  margin-block-end: 1.25rem;
 }
 
 .meta-dot {
@@ -346,12 +350,13 @@ const handleShare = async () => {
 
 .article-title {
   font-family: var(--font-serif);
-  font-size: clamp(2.25rem, 5vw, 3.25rem);
+  font-size: clamp(2.25rem, 1.5rem + 3.5vw, 3.25rem);
   font-weight: 700;
   line-height: 1.18;
   letter-spacing: -0.02em;
   color: var(--text-primary);
-  margin-bottom: 1.25rem;
+  margin-block-end: 1.25rem;
+  text-wrap: balance;
 }
 
 .article-lead {
@@ -359,7 +364,9 @@ const handleShare = async () => {
   font-size: 1.25rem;
   line-height: 1.6;
   color: var(--text-secondary);
-  margin-bottom: 2rem;
+  margin-block-end: 2rem;
+  text-wrap: pretty;
+  max-inline-size: 75ch;
 }
 
 /* Author action bar */
@@ -367,9 +374,9 @@ const handleShare = async () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.25rem 0;
-  border-top: 1px solid var(--border-light);
-  border-bottom: 1px solid var(--border-light);
+  padding-block: 1.25rem;
+  border-block-start: 1px solid var(--border-light);
+  border-block-end: 1px solid var(--border-light);
   gap: 1rem;
   flex-wrap: wrap;
 }
@@ -381,8 +388,8 @@ const handleShare = async () => {
 }
 
 .author-avatar-large {
-  width: 2.75rem;
-  height: 2.75rem;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
   border-radius: var(--radius-full);
   object-fit: cover;
 }
@@ -415,31 +422,32 @@ const handleShare = async () => {
   gap: 0.5rem;
   background-color: var(--bg-surface);
   border: 1px solid var(--border-medium);
-  padding: 0.5rem 1rem;
+  padding-block: 0.5rem;
+  padding-inline: 1rem;
   border-radius: var(--radius-full);
   color: var(--text-secondary);
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
   transition: all var(--transition-fast);
-}
 
-.btn-like-article:hover {
-  background-color: var(--bg-secondary);
-  color: var(--text-primary);
-}
+  &:hover {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+  }
 
-.btn-like-article.is-liked {
-  color: var(--like-color);
-  background-color: var(--like-subtle);
-  border-color: rgba(239, 68, 68, 0.3);
+  &.is-liked {
+    color: var(--like-color);
+    background-color: var(--like-subtle);
+    border-color: color-mix(in oklab, var(--like-color) 30%, transparent);
+  }
 }
 
 .btn-action-icon {
   background-color: var(--bg-surface);
   border: 1px solid var(--border-medium);
-  width: 2.375rem;
-  height: 2.375rem;
+  inline-size: 2.375rem;
+  block-size: 2.375rem;
   border-radius: var(--radius-full);
   display: flex;
   align-items: center;
@@ -447,37 +455,37 @@ const handleShare = async () => {
   color: var(--text-secondary);
   cursor: pointer;
   transition: all var(--transition-fast);
-}
 
-.btn-action-icon:hover {
-  color: var(--text-primary);
-  background-color: var(--bg-secondary);
+  &:hover {
+    color: var(--text-primary);
+    background-color: var(--bg-secondary);
+  }
 }
 
 /* Banner Frame */
 .cover-banner-wrapper {
-  margin: 1.5rem 0 2.5rem;
+  margin-block: 1.5rem 2.5rem;
 }
 
 .banner-frame {
-  width: 100%;
+  inline-size: 100%;
   aspect-ratio: 16 / 9;
-  max-height: 480px;
+  max-block-size: 480px;
   border-radius: var(--radius-lg);
-  overflow: hidden;
+  overflow: clip;
   box-shadow: var(--shadow-md);
   background-color: var(--bg-secondary);
 }
 
 .banner-image {
-  width: 100%;
-  height: 100%;
+  inline-size: 100%;
+  block-size: 100%;
   object-fit: cover;
 }
 
 /* Article Body Typography */
 .article-body-wrapper {
-  padding-top: 1rem;
+  padding-block-start: 1rem;
 }
 
 .article-body {
@@ -485,10 +493,13 @@ const handleShare = async () => {
   font-size: 1.1875rem;
   line-height: 1.85;
   color: var(--text-primary);
+  max-inline-size: 70ch;
 }
 
 .body-p {
-  margin-bottom: 1.75rem;
+  margin-block-end: 1.75rem;
+  text-wrap: pretty;
+  overflow-wrap: break-word;
 }
 
 .body-h2 {
@@ -496,26 +507,30 @@ const handleShare = async () => {
   font-size: 1.75rem;
   font-weight: 700;
   letter-spacing: -0.01em;
-  margin: 2.75rem 0 1rem;
+  margin-block: 2.75rem 1rem;
   color: var(--text-primary);
+  text-wrap: balance;
 }
 
 .body-h3 {
   font-family: var(--font-sans);
   font-size: 1.375rem;
   font-weight: 600;
-  margin: 2.25rem 0 0.875rem;
+  margin-block: 2.25rem 0.875rem;
   color: var(--text-primary);
+  text-wrap: balance;
 }
 
 .body-quote {
   font-style: italic;
   font-size: 1.25rem;
   line-height: 1.6;
-  border-left: 3px solid var(--accent);
-  padding: 0.75rem 0 0.75rem 1.5rem;
-  margin: 2.25rem 0;
+  border-inline-start: 3px solid var(--accent);
+  padding-block: 0.75rem;
+  padding-inline-start: 1.5rem;
+  margin-block: 2.25rem;
   color: var(--text-secondary);
+  text-wrap: pretty;
 }
 
 .body-code {
@@ -527,24 +542,25 @@ const handleShare = async () => {
   padding: 1.25rem;
   overflow-x: auto;
   line-height: 1.5;
-  margin: 2rem 0;
+  margin-block: 2rem;
   color: var(--text-primary);
 }
 
 .body-list, .body-ordered-list {
-  padding-left: 1.5rem;
-  margin-bottom: 1.75rem;
+  padding-inline-start: 1.5rem;
+  margin-block-end: 1.75rem;
 }
 
 .body-list li, .body-ordered-list li {
-  margin-bottom: 0.625rem;
+  margin-block-end: 0.625rem;
+  text-wrap: pretty;
 }
 
 /* Tags */
 .tags-section {
-  margin-top: 2.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--border-light);
+  margin-block-start: 2.5rem;
+  padding-block-start: 1.5rem;
+  border-block-start: 1px solid var(--border-light);
 }
 
 .tags-list {
@@ -557,7 +573,8 @@ const handleShare = async () => {
   font-family: var(--font-sans);
   font-size: 0.8125rem;
   font-weight: 500;
-  padding: 0.35rem 0.75rem;
+  padding-block: 0.35rem;
+  padding-inline: 0.75rem;
   border-radius: var(--radius-full);
   background-color: var(--bg-secondary);
   color: var(--text-secondary);
@@ -565,7 +582,7 @@ const handleShare = async () => {
 
 /* Bottom Engagement Bar */
 .bottom-engagement-bar {
-  margin-top: 3rem;
+  margin-block-start: 3rem;
   padding: 2rem;
   border-radius: var(--radius-lg);
   background-color: var(--bg-surface);
@@ -581,39 +598,41 @@ const handleShare = async () => {
   font-size: 1.05rem;
   font-weight: 600;
   color: var(--text-primary);
+  text-wrap: balance;
 }
 
 .btn-large {
-  padding: 0.75rem 1.5rem;
+  padding-block: 0.75rem;
+  padding-inline: 1.5rem;
   font-size: 0.9375rem;
 }
 
 .like-counter-bubble {
-  background: rgba(0, 0, 0, 0.08);
-  padding: 0.15rem 0.5rem;
+  background: color-mix(in oklab, var(--text-primary) 8%, transparent);
+  padding-block: 0.15rem;
+  padding-inline: 0.5rem;
   border-radius: var(--radius-full);
   font-size: 0.8125rem;
   font-weight: 600;
 }
 
-[data-theme="dark"] .like-counter-bubble {
-  background: rgba(255, 255, 255, 0.12);
-}
-
 /* Not Found */
 .post-not-found {
   text-align: center;
-  padding: 6rem 1.5rem;
+  padding-block: 6rem;
+  padding-inline: 1.5rem;
 }
 
 .post-not-found h2 {
   font-family: var(--font-serif);
   font-size: 2rem;
-  margin-bottom: 1rem;
+  margin-block-end: 1rem;
+  text-wrap: balance;
 }
 
 .post-not-found p {
   color: var(--text-secondary);
-  margin-bottom: 2rem;
+  margin-block-end: 2rem;
+  text-wrap: pretty;
 }
 </style>
