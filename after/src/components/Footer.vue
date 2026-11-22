@@ -66,10 +66,10 @@ const handleReset = () => {
 
 <style scoped>
 .footer {
-  margin-top: auto;
-  border-top: 1px solid var(--border-light);
+  margin-block-start: auto;
+  border-block-start: 1px solid var(--border-light);
   background-color: var(--bg-surface);
-  padding: 3rem 0 2rem;
+  padding-block: 3rem 2rem;
   transition: background-color var(--transition-normal), border-color var(--transition-normal);
 }
 
@@ -88,7 +88,7 @@ const handleReset = () => {
 }
 
 .footer-brand {
-  max-width: 440px;
+  max-inline-size: 440px;
 }
 
 .footer-logo {
@@ -100,13 +100,15 @@ const handleReset = () => {
   font-weight: 700;
   letter-spacing: 0.08em;
   color: var(--text-primary);
-  margin-bottom: 0.625rem;
+  margin-block-end: 0.625rem;
+  text-wrap: balance;
 }
 
 .footer-tagline {
   font-size: 0.875rem;
   color: var(--text-secondary);
   line-height: 1.55;
+  text-wrap: pretty;
 }
 
 .footer-controls {
@@ -116,35 +118,39 @@ const handleReset = () => {
 
 .reset-btn {
   font-size: 0.8125rem;
-  padding: 0.5rem 0.875rem;
+  padding-block: 0.5rem;
+  padding-inline: 0.875rem;
   color: var(--text-muted);
   border-color: var(--border-medium);
   transition: all var(--transition-fast);
-}
 
-.reset-btn:hover {
-  color: var(--text-primary);
-  border-color: var(--text-primary);
-}
+  &:hover {
+    color: var(--text-primary);
+    border-color: var(--text-primary);
+  }
 
-.reset-btn.confirming {
-  border-color: #ef4444;
-  color: #ef4444;
-  background-color: var(--like-subtle);
+  &.confirming {
+    border-color: #ef4444;
+    color: #ef4444;
+    background-color: var(--like-subtle);
+  }
 }
 
 .spin-icon {
-  animation: spin 1s infinite linear;
+  rotate: 0deg;
+  @media (prefers-reduced-motion: no-preference) {
+    animation: spin 1s infinite linear;
+  }
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(-360deg); }
+  from { rotate: 0deg; }
+  to { rotate: -360deg; }
 }
 
 .footer-bottom {
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--border-light);
+  padding-block-start: 1.5rem;
+  border-block-start: 1px solid var(--border-light);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -157,12 +163,13 @@ const handleReset = () => {
 .footer-bottom code {
   font-family: var(--font-mono);
   background-color: var(--bg-secondary);
-  padding: 0.15rem 0.35rem;
+  padding-block: 0.15rem;
+  padding-inline: 0.35rem;
   border-radius: var(--radius-sm);
   color: var(--text-secondary);
 }
 
-@media (max-width: 640px) {
+@media (width <= 640px) {
   .footer-bottom {
     flex-direction: column;
     align-items: flex-start;

@@ -212,20 +212,20 @@ const handleDelete = (commentId) => {
 
 <style scoped>
 .comments-section {
-  margin-top: 3.5rem;
-  padding-top: 2.5rem;
-  border-top: 1px solid var(--border-light);
+  margin-block-start: 3.5rem;
+  padding-block-start: 2.5rem;
+  border-block-start: 1px solid var(--border-light);
 }
 
 .comments-header {
-  margin-bottom: 1.75rem;
+  margin-block-end: 1.75rem;
 }
 
 .comments-title-wrap {
   display: flex;
   align-items: center;
   gap: 0.625rem;
-  margin-bottom: 0.375rem;
+  margin-block-end: 0.375rem;
 }
 
 .comments-icon {
@@ -237,6 +237,7 @@ const handleDelete = (commentId) => {
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--text-primary);
+  text-wrap: balance;
 }
 
 .comments-count {
@@ -249,6 +250,7 @@ const handleDelete = (commentId) => {
 .comments-subtitle {
   font-size: 0.875rem;
   color: var(--text-secondary);
+  text-wrap: pretty;
 }
 
 /* Comment Form */
@@ -257,7 +259,7 @@ const handleDelete = (commentId) => {
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
   padding: 1.25rem;
-  margin-bottom: 2.5rem;
+  margin-block-end: 2.5rem;
   box-shadow: var(--shadow-sm);
 }
 
@@ -266,27 +268,27 @@ const handleDelete = (commentId) => {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  margin-bottom: 1rem;
+  margin-block-end: 1rem;
   flex-wrap: wrap;
 }
 
 .author-input-wrapper {
   position: relative;
-  max-width: 280px;
-  width: 100%;
+  max-inline-size: 280px;
+  inline-size: 100%;
 }
 
 .input-icon {
   position: absolute;
-  left: 0.875rem;
-  top: 50%;
-  transform: translateY(-50%);
+  inset-inline-start: 0.875rem;
+  inset-block-start: 50%;
+  translate: 0 -50%;
   color: var(--text-muted);
   pointer-events: none;
 }
 
 .author-input {
-  padding-left: 2.5rem;
+  padding-inline-start: 2.5rem;
   font-size: 0.875rem;
 }
 
@@ -296,11 +298,11 @@ const handleDelete = (commentId) => {
 }
 
 .textarea-wrapper {
-  margin-bottom: 0.75rem;
+  margin-block-end: 0.75rem;
 }
 
 .comment-textarea {
-  min-height: 90px;
+  min-block-size: 90px;
   font-size: 0.9375rem;
 }
 
@@ -321,20 +323,22 @@ const handleDelete = (commentId) => {
 
 .submit-comment-btn {
   font-size: 0.875rem;
-  padding: 0.5rem 1.125rem;
+  padding-block: 0.5rem;
+  padding-inline: 1.125rem;
 }
 
 /* Comments List */
 .no-comments {
   text-align: center;
-  padding: 3rem 1.5rem;
+  padding-block: 3rem;
+  padding-inline: 1.5rem;
   background-color: var(--bg-secondary);
   border-radius: var(--radius-lg);
   color: var(--text-muted);
 }
 
 .empty-icon {
-  margin-bottom: 0.75rem;
+  margin-block-end: 0.75rem;
   opacity: 0.6;
 }
 
@@ -355,16 +359,17 @@ const handleDelete = (commentId) => {
   background-color: var(--bg-surface);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-md);
+  border-inline-start: 3px solid transparent;
   transition: border-color var(--transition-fast), background-color var(--transition-fast);
-}
 
-.comment-card.user-authored {
-  border-left: 3px solid var(--accent);
+  &.user-authored {
+    border-inline-start-color: var(--accent);
+  }
 }
 
 .comment-avatar {
-  width: 2.5rem;
-  height: 2.5rem;
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
   border-radius: var(--radius-full);
   color: #ffffff;
   display: flex;
@@ -379,14 +384,14 @@ const handleDelete = (commentId) => {
 
 .comment-content-wrap {
   flex: 1;
-  min-width: 0;
+  min-inline-size: 0;
 }
 
 .comment-meta {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.5rem;
+  margin-block-end: 0.5rem;
   gap: 0.5rem;
 }
 
@@ -405,7 +410,8 @@ const handleDelete = (commentId) => {
 .you-badge {
   font-size: 0.6875rem;
   font-weight: 600;
-  padding: 0.125rem 0.375rem;
+  padding-block: 0.125rem;
+  padding-inline: 0.375rem;
   border-radius: var(--radius-full);
   background-color: var(--accent-subtle);
   color: var(--accent);
@@ -434,11 +440,11 @@ const handleDelete = (commentId) => {
   align-items: center;
   justify-content: center;
   transition: color var(--transition-fast), background-color var(--transition-fast);
-}
 
-.btn-delete-comment:hover {
-  color: #ef4444;
-  background-color: var(--like-subtle);
+  &:hover {
+    color: #ef4444;
+    background-color: var(--like-subtle);
+  }
 }
 
 .comment-text {
@@ -447,21 +453,27 @@ const handleDelete = (commentId) => {
   line-height: 1.6;
   white-space: pre-wrap;
   word-break: break-word;
+  overflow-wrap: break-word;
+  text-wrap: pretty;
 }
 
-/* Animations */
+/* Animations with Individual Transform Properties */
 .comment-fade-enter-active,
 .comment-fade-leave-active {
-  transition: all 0.3s ease;
+  transition: opacity 0.3s ease, translate 0.3s ease, scale 0.3s ease;
 }
 
 .comment-fade-enter-from {
   opacity: 0;
-  transform: translateY(-12px);
+  @media (prefers-reduced-motion: no-preference) {
+    translate: 0 -12px;
+  }
 }
 
 .comment-fade-leave-to {
   opacity: 0;
-  transform: scale(0.95);
+  @media (prefers-reduced-motion: no-preference) {
+    scale: 0.95;
+  }
 }
 </style>

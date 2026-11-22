@@ -125,50 +125,62 @@ const handleLikeClick = (e) => {
 
 <style scoped>
 .post-card {
+  container: post-card / inline-size;
   background-color: var(--bg-surface);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
-  overflow: hidden;
-  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+  overflow: clip;
+  translate: 0 0;
+  transition: translate var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
   display: flex;
   flex-direction: column;
-}
 
-.post-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--border-medium);
+  &:hover {
+    box-shadow: var(--shadow-lg);
+    border-color: var(--border-medium);
+
+    @media (prefers-reduced-motion: no-preference) {
+      translate: 0 -4px;
+    }
+
+    .card-image {
+      @media (prefers-reduced-motion: no-preference) {
+        scale: 1.03;
+      }
+    }
+
+    .card-title {
+      color: var(--accent);
+    }
+  }
 }
 
 .card-link {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  block-size: 100%;
 }
 
 .card-image-wrap {
   position: relative;
-  width: 100%;
+  inline-size: 100%;
   aspect-ratio: 16 / 9;
-  overflow: hidden;
+  overflow: clip;
   background-color: var(--bg-secondary);
 }
 
 .card-image {
-  width: 100%;
-  height: 100%;
+  inline-size: 100%;
+  block-size: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.post-card:hover .card-image {
-  transform: scale(1.03);
+  scale: 1;
+  transition: scale 0.5s ease;
 }
 
 .card-category {
   position: absolute;
-  top: 1rem;
-  left: 1rem;
+  inset-block-start: 1rem;
+  inset-inline-start: 1rem;
   backdrop-filter: blur(8px);
   box-shadow: var(--shadow-sm);
 }
@@ -186,7 +198,7 @@ const handleLikeClick = (e) => {
   gap: 0.5rem;
   font-size: 0.75rem;
   color: var(--text-muted);
-  margin-bottom: 0.75rem;
+  margin-block-end: 0.75rem;
 }
 
 .meta-item {
@@ -201,27 +213,27 @@ const handleLikeClick = (e) => {
   font-weight: 700;
   line-height: 1.35;
   color: var(--text-primary);
-  margin-bottom: 0.625rem;
+  margin-block-end: 0.625rem;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  overflow: hidden;
+  line-clamp: 2;
+  overflow: clip;
+  text-wrap: balance;
   transition: color var(--transition-fast);
-}
-
-.post-card:hover .card-title {
-  color: var(--accent);
 }
 
 .card-excerpt {
   font-size: 0.875rem;
   color: var(--text-secondary);
   line-height: 1.6;
-  margin-bottom: 1.25rem;
+  margin-block-end: 1.25rem;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  overflow: hidden;
+  line-clamp: 3;
+  overflow: clip;
+  text-wrap: pretty;
   flex: 1;
 }
 
@@ -229,8 +241,8 @@ const handleLikeClick = (e) => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 1rem;
-  border-top: 1px solid var(--border-light);
+  padding-block-start: 1rem;
+  border-block-start: 1px solid var(--border-light);
   gap: 0.75rem;
 }
 
@@ -238,12 +250,12 @@ const handleLikeClick = (e) => {
   display: flex;
   align-items: center;
   gap: 0.625rem;
-  min-width: 0;
+  min-inline-size: 0;
 }
 
 .author-avatar {
-  width: 2rem;
-  height: 2rem;
+  inline-size: 2rem;
+  block-size: 2rem;
   border-radius: var(--radius-full);
   object-fit: cover;
   flex-shrink: 0;
@@ -254,7 +266,7 @@ const handleLikeClick = (e) => {
   font-weight: 600;
   color: var(--text-primary);
   white-space: nowrap;
-  overflow: hidden;
+  overflow: clip;
   text-overflow: ellipsis;
 }
 
@@ -271,22 +283,23 @@ const handleLikeClick = (e) => {
   gap: 0.3125rem;
   background: none;
   border: 1px solid transparent;
-  padding: 0.25rem 0.5rem;
+  padding-block: 0.25rem;
+  padding-inline: 0.5rem;
   border-radius: var(--radius-full);
   color: var(--text-muted);
   cursor: pointer;
   font-size: 0.8125rem;
   transition: all var(--transition-fast);
-}
 
-.stat-btn:hover {
-  background-color: var(--bg-secondary);
-  color: var(--text-primary);
-}
+  &:hover {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+  }
 
-.stat-btn.is-liked {
-  color: var(--like-color);
-  background-color: var(--like-subtle);
+  &.is-liked {
+    color: var(--like-color);
+    background-color: var(--like-subtle);
+  }
 }
 
 .stat-badge {
@@ -295,7 +308,8 @@ const handleLikeClick = (e) => {
   gap: 0.3125rem;
   color: var(--text-muted);
   font-size: 0.8125rem;
-  padding: 0.25rem 0.375rem;
+  padding-block: 0.25rem;
+  padding-inline: 0.375rem;
 }
 
 .stat-count {
